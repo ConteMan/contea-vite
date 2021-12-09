@@ -1,5 +1,6 @@
 import { sendMessage, onMessage } from 'webext-bridge'
 import { Tabs } from 'webextension-polyfill'
+import configState from '~/models/keyValue/configState'
 
 // only on dev mode
 if (import.meta.hot) {
@@ -12,6 +13,7 @@ if (import.meta.hot) {
 browser.runtime.onInstalled.addListener((): void => {
   // eslint-disable-next-line no-console
   console.log('Extension installed')
+  configState.init()
 })
 
 let previousTabId = 0

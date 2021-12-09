@@ -4,6 +4,8 @@ import Vue from '@vitejs/plugin-vue'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
+import styleImport, { AndDesignVueResolve } from 'vite-plugin-style-import'
 import AutoImport from 'unplugin-auto-import/vite'
 import WindiCSS from 'vite-plugin-windicss'
 import windiConfig from './windi.config'
@@ -14,6 +16,8 @@ export const sharedConfig: UserConfig = {
   resolve: {
     alias: {
       '~/': `${r('src')}/`,
+      '#/': `${r('types')}/`,
+      '~o/': `${r('src/options')}`,
     },
   },
   define: {
@@ -26,9 +30,7 @@ export const sharedConfig: UserConfig = {
       imports: [
         'vue',
         {
-          'webextension-polyfill': [
-            ['default', 'browser'],
-          ],
+          'webextension-polyfill': [['default', 'browser']],
         },
       ],
       dts: r('src/auto-imports.d.ts'),
@@ -43,6 +45,9 @@ export const sharedConfig: UserConfig = {
         // auto import icons
         IconsResolver({
           componentPrefix: '',
+        }),
+        AntDesignVueResolver({
+          resolveIcons: true,
         }),
       ],
     }),
@@ -59,16 +64,36 @@ export const sharedConfig: UserConfig = {
         return html.replace(/"\/assets\//g, `"${relative(dirname(path), '/assets')}/`)
       },
     },
+
+    // https://github.com/anncwb/vite-plugin-style-import
+    styleImport({
+      resolves: [
+        AndDesignVueResolve(),
+      ],
+      libs: [
+        // 如果没有你需要的resolve，可以在lib内直接写，也可以给我们提供PR
+        {
+          libraryName: 'ant-design-vue',
+          esModule: true,
+          resolveStyle: (name) => {
+            return `ant-design-vue/es/${name}/style/index`
+          },
+        },
+      ],
+    }),
   ],
   optimizeDeps: {
-    include: [
-      'vue',
-      '@vueuse/core',
-      'webextension-polyfill',
-    ],
-    exclude: [
-      'vue-demi',
-    ],
+    include: ['vue', '@vueuse/core', 'webextension-polyfill'],
+    exclude: ['vue-demi'],
+  },
+
+  // https://github.com/anncwb/vite-plugin-style-import
+  css: {
+    preprocessorOptions: {
+      less: {
+        javascriptEnabled: true,
+      },
+    },
   },
 }
 

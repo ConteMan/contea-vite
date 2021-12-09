@@ -10,4 +10,12 @@ export default defineConfig({
       resolve(__dirname, 'src/**/*.{vue,html}'),
     ],
   },
+  theme: {
+    container: {
+      center: true,
+    },
+  },
+  shortcuts: {
+    'btn-active': '!text-red-600',
+  },
 })

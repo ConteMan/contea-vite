@@ -3,7 +3,10 @@
     "baseUrl": ".",
     "module": "ESNext",
     "target": "es2016",
-    "lib": ["DOM", "ESNext"],
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
     "strict": true,
     "esModuleInterop": true,
     "incremental": false,
@@ -16,9 +19,37 @@
     "types": [
       "vite/client"
     ],
+    "typeRoots": [
+      "./node_modules/@types/",
+      "./types"
+    ],
     "paths": {
-      "~/*": ["src/*"]
+      "~o/*": [
+        "src/options/*"
+      ],
+      "~/*": [
+        "src/*"
+      ],
+      "#/*": [
+        "types/*"
+      ]
     }
   },
-  "exclude": ["dist", "node_modules"]
+  "include": [
+    "tests/**/*.ts",
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "types/**/*.d.ts",
+    "types/**/*.ts",
+    "build/**/*.ts",
+    "build/**/*.d.ts",
+    "mock/**/*.ts",
+    "vite.config.ts"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
 }
