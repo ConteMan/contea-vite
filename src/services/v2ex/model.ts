@@ -5,12 +5,12 @@ export type Config = {
   site: string
   url: string
   expried: number
-  storageKey: string
 }
 
 export type BaseUser = {
   expried?: number
   username?: string
+  login?: boolean
 }
 
 export type User = BaseUser & {
@@ -32,3 +32,11 @@ export type Mession = {
   completed?: boolean
   days?: number
 }
+
+export type InfoItem = {
+  ca_module: string
+  ca_module_type: string
+  [other: string]: any
+}
+
+export type InfoList = InfoItem []

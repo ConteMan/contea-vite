@@ -3,8 +3,16 @@
     <a-button
       type="text"
       class="text-gray-400 !bg-transparent"
-      :class="[ {'btn-active': routeName === 'List'} ]"
+      :class="[ {'btn-active': routeName === 'Card'} ]"
       @click="$router.push('/')"
+    >
+      Card
+    </a-button>
+    <a-button
+      type="text"
+      class="text-gray-400 !bg-transparent"
+      :class="[ {'btn-active': routeName === 'List'} ]"
+      @click="$router.push('/list')"
     >
       List
     </a-button>
@@ -29,8 +37,6 @@ routeName.value = route.name
 watch(() => route.name,
   (name) => {
     routeName.value = name
-    // eslint-disable-next-line no-console
-    console.log(name)
   },
 )
 </script>

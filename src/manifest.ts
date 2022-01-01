@@ -35,16 +35,23 @@ export async function getManifest() {
       'tabs',
       'storage',
       'activeTab',
+      'cookies',
       'http://*/',
       'https://*/',
     ],
-    content_scripts: [{
-      matches: ['http://*/*', 'https://*/*'],
-      js: ['./dist/contentScripts/index.global.js'],
-    }],
-    web_accessible_resources: [
-      'dist/contentScripts/style.css',
-    ],
+    // 覆盖浏览器默认页面
+    chrome_url_overrides:
+    {
+      // 覆盖浏览器默认的新标签页
+      newtab: './dist/newTab/index.html',
+    },
+    // content_scripts: [{
+    //   matches: ['http://*/*', 'https://*/*'],
+    //   js: ['./dist/contentScripts/index.global.js'],
+    // }],
+    // web_accessible_resources: [
+    //   'dist/contentScripts/style.css',
+    // ],
   }
 
   if (isDev) {

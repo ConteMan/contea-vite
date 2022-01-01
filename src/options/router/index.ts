@@ -9,8 +9,13 @@ const routes: Array<RouteRecordRaw> = [
     component: HeadList,
     children: [
       {
-        name: 'List',
+        name: 'Card',
         path: '/',
+        component: () => import('~/options/views/Card.vue'),
+      },
+      {
+        name: 'List',
+        path: '/list',
         component: () => import('~/options/views/List.vue'),
       },
       {

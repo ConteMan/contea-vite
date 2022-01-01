@@ -26,7 +26,7 @@
         @click.stop="openSite(config.site)"
       >
         {{ config.name }}
-        <span v-if="!loading" class="ml-1 text-sm" :class="login ? 'text-green-600' : 'text-red-600'">
+        <span v-if="!loading" class="ml-1 text-sm" :class="info.login ? 'text-green-600' : 'text-red-600'">
           ●
         </span>
       </div>
@@ -43,14 +43,12 @@ import type { Config, User } from '~/services/v2ex/model'
 
 const config = ref({} as Config)
 const info = ref({} as User)
-const login = ref(false)
 const loading = ref(true)
 
 const getInfo = async() => {
   loading.value = true
   config.value = await v2ex.getConfig()
   info.value = await v2ex.user()
-  login.value = await v2ex.loginCheck()
   loading.value = false
 }
 
